@@ -29,6 +29,7 @@
 - Khi nâng cấp java lên 177: 
   - sao lưu jenkins
   - nâng cấp jenkins
+<<<<<<< HEAD
   # 4 Sử dụng Jenkins
     (Các chủ đề dành cho người dùng Jenkins thông thường (ở mọi cấp độ kỹ năng) về cách sử dụng Jenkins nằm ngoài phạm vi các tính năng cốt lõi của Jenkins: Pipeline và Blue Ocean)
 * **Thực hành**: giới thiệu những phương pháp hay nhất dành cho người dùngdùng
@@ -146,3 +147,5 @@
     * AWS CodeCommit Jobs
     * DAGsHub Branch Source
 * **Dùng Organization Folders**: cho phép Jenkins giám sát toàn bộ Tổ chức GitHub, Nhóm/Dự án Bitbucket, tổ chức GitLab hoặc tổ chức Gitea và tự động tạo Đường ống đa nhánh mới cho các kho lưu trữ chứa các nhánh và pull requessts có chứa tệp Jenkinsfile.
+=======
+>>>>>>> 1db04eec1efc433b8cfb99ce1d449e9a787930c1
