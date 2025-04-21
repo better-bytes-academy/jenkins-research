@@ -23,6 +23,8 @@ Docker cho phép các ứng dụng chạy ở bất kì môi trường hệ đi�
 
 - Java: phiên bản JDK 17 hoặc 21 ( recommended) - Các phiên bản khác tra cứu tại: https://www.jenkins.io/doc/book/platform-information/support-policy-java/
 
+> Nếu cài đặt Docker ở một hệ điều hành dạng Linux, phải đảm bảo cấu hình Docker để có thể quản lý như một non-root user - refer: [Post-installati](https://docs.docker.com/engine/installation/linux/linux-postinstall/)
+
 **2. Tải và chạy Jenkin ở Docker**
 
 > Phiên bản image của Jenkin trong Docker hub (https://hub.docker.com/r/jenkins/jenkins/) chứa bản LTS của Jenkin, không chứa Docker CLI, không chứa các plugin và tính năng được dùng nhiều của BlueOcean
