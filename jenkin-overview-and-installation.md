@@ -19,9 +19,9 @@ Docker cho phép các ứng dụng chạy ở bất kì môi trường hệ đi�
 ### Cài đặt Docker
 **1. Yêu cầu phần cứng- phần mềm**
 
-Yêu cầu phần cứng: tra cứu tại https://www.jenkins.io/doc/book/scaling/hardware-recommendations/
+- Yêu cầu phần cứng: tra cứu tại https://www.jenkins.io/doc/book/scaling/hardware-recommendations/
 
-Java: phiên bản JDK 17 hoặc 21 ( recommended) - Các phiên bản khác tra cứu tại: https://www.jenkins.io/doc/book/platform-information/support-policy-java/
+- Java: phiên bản JDK 17 hoặc 21 ( recommended) - Các phiên bản khác tra cứu tại: https://www.jenkins.io/doc/book/platform-information/support-policy-java/
 
 **2. Tải và chạy Jenkin ở Docker**
 
