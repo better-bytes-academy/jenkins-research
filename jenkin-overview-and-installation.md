@@ -29,6 +29,8 @@ Docker cho phép các ứng dụng chạy ở bất kì môi trường hệ đi�
 
 > Phiên bản image của Jenkin trong Docker hub (https://hub.docker.com/r/jenkins/jenkins/) chứa bản LTS của Jenkin, không chứa Docker CLI, không chứa các plugin và tính năng được dùng nhiều của BlueOcean
 
+Mô tả phương pháp: 
+![alt text](images/image.png)
 
 2.1 MacOS and Linux
 1. Mở terminal
