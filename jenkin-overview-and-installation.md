@@ -18,11 +18,13 @@ Docker cho phép các ứng dụng chạy ở bất kì môi trường hệ đi�
 
 ### Cài đặt Docker
 **1. Yêu cầu phần cứng- phần mềm**
+
 Yêu cầu phần cứng: tra cứu tại https://www.jenkins.io/doc/book/scaling/hardware-recommendations/
 
 Java: phiên bản JDK 17 hoặc 21 ( recommended) - Các phiên bản khác tra cứu tại: https://www.jenkins.io/doc/book/platform-information/support-policy-java/
 
 **2. Tải và chạy Jenkin ở Docker**
+
 > Phiên bản image của Jenkin trong Docker hub (https://hub.docker.com/r/jenkins/jenkins/) chứa bản LTS của Jenkin, không chứa Docker CLI, không chứa các plugin và tính năng được dùng nhiều của BlueOcean
 
 
@@ -62,21 +64,22 @@ Note:
 
 
 4. Tuỳ chỉnh Docker image chính thức của Jenkin với 2 bước:
-a. Tạo `Dockerfile` với câu lệnh 
-```bash
-FROM jenkins/jenkins:2.492.3-jdk17
-USER root
-RUN apt-get update && apt-get install -y lsb-release ca-certificates curl && \
-    install -m 0755 -d /etc/apt/keyrings && \
-    curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc && \
-    chmod a+r /etc/apt/keyrings/docker.asc && \
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] \
-    https://download.docker.com/linux/debian $(. /etc/os-release && echo \"$VERSION_CODENAME\") stable" \
-    | tee /etc/apt/sources.list.d/docker.list > /dev/null && \
-    apt-get update && apt-get install -y docker-ce-cli && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
-USER jenkins
-RUN jenkins-plugin-cli --plugins "blueocean docker-workflow"
-```
-b. Build Docker image mới với `Dockerfile` trên, và cho nó một cái tên có ý nghĩa. VD: 
-`docker build -t myjenkins-blueocean:2.492.3-1`
+
+    a. Tạo `Dockerfile` với câu lệnh 
+    ```bash
+    FROM jenkins/jenkins:2.492.3-jdk17
+    USER root
+    RUN apt-get update && apt-get install -y lsb-release ca-certificates curl && \
+        install -m 0755 -d /etc/apt/keyrings && \
+        curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc && \
+        chmod a+r /etc/apt/keyrings/docker.asc && \
+        echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] \
+        https://download.docker.com/linux/debian $(. /etc/os-release && echo \"$VERSION_CODENAME\") stable" \
+        | tee /etc/apt/sources.list.d/docker.list > /dev/null && \
+        apt-get update && apt-get install -y docker-ce-cli && \
+        apt-get clean && rm -rf /var/lib/apt/lists/*
+    USER jenkins
+    RUN jenkins-plugin-cli --plugins "blueocean docker-workflow"
+    ```
+    b. Build Docker image mới với `Dockerfile` trên, và cho nó một cái tên có ý nghĩa. VD: 
+    `docker build -t myjenkins-blueocean:2.492.3-1`
