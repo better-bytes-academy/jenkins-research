@@ -87,3 +87,91 @@ Note:
     ```
     b. Build Docker image mới với `Dockerfile` trên, và cho nó một cái tên có ý nghĩa. VD: 
     `docker build -t myjenkins-blueocean:2.492.3-1`
+
+5. Chạy image đã tạo ở bước 4 với câu lệnh `docker run`:
+    ```bash
+    docker run \
+    --name jenkins-blueocean \
+    --restart=on-failure \
+    --detach \
+    --network jenkins \
+    --env DOCKER_HOST=tcp://docker:2376 \
+    --env DOCKER_CERT_PATH=/certs/client \
+    --env DOCKER_TLS_VERIFY=1 \
+    --publish 8080:8080 \
+    --publish 50000:50000 \
+    --volume jenkins-data:/var/jenkins_home \
+    --volume jenkins-docker-certs:/certs/client:ro \
+    myjenkins-blueocean:2.492.3-1
+    ```
+
+    - (1): Optional - định danh Docker container
+    - (2): Luôn luôn restart container nếu nó dừng lại (bị lỗi). Nếu container được dừng bởi người dùng, thì container chỉ được chạy lại khi daemon khởi động lại hoặc được khởi động lại thủ công
+    - (3) Optional - chạy nền (detached mode) 
+    - (4) Kết nối Docker container tới mạng jenkin được cài đặt trước đó
+    - (5) Chỉ rõ các biến môi trường được dùng bởi docker, docker-compose và các tool khác của Docker để connect tới Docker daemon ở bước trước
+    - (6) Map port 8080 của container tới port 8080 của máy host `<host port>:<container port>`
+    - (7) (Optional) Map port 50000 của container hiện tại tới port 50000 của máy host. Chỉ cần khi muốn cài đặt thêm các Jenkin agent ( ở máy khác) muốn tương tác với container jenkins-blueocean (Jenkins "controller") 
+    > refer tới official doc - cài đặt Jenkin trong Docker không được recommended trong môi trường thực tế
+
+    - (8) Map /var/jenkins_home trong container tới Docker Volume với tên jenkins_data. 
+    - (9) Map thư mục (đường dẫn) /certs/client tới jenkins-docker-certs.
+    - (10) tên Docker image, built ở step trước
+
+
+## Cài đặt với Linux
+
+### Debian/Ubuntu
+
+Cài đặt Jenkin với `apt`
+
+```bash
+sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
+  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \
+  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+sudo apt-get update
+sudo apt-get install jenkins
+```
+
+Cài đặt Java
+
+```bash
+sudo apt update
+sudo apt install fontconfig openjdk-21-jre
+java -version
+openjdk version "21.0.3" 2024-04-16
+OpenJDK Runtime Environment (build 21.0.3+11-Debian-2)
+OpenJDK 64-Bit Server VM (build 21.0.3+11-Debian-2, mixed mode, sharing)
+```
+
+## Post-installation setup wizard
+
+### Unlocking Jenkins
+Sau khi cài đặt, lần đầu tiên truy cập Jenkins sẽ yêu cầu unlock với password được tự gen của Jenkin.
+
+1. Mở `https://localhost:8080` và chờ trang Unlock xuất hiện
+Nếu cài đặt Jenkin trên server và không có giao diện, cần thực hiện mở external port để truy cập trang `localhost:8080` 
+
+    VD: tunnel thông qua một SSH connection
+
+        `"<remote host>" -p 22 -oIdentitiesOnly=yes -L "<origin host>:<port>:<remote host>:<port>"`
+    
+2. Trên trang Unlock, copy đường dẫn hiển thị, vào terminal gõ 
+`cat <đường dẫn>` để lấy thông tin password
+
+    > Password này cần được dùng để có thể vào giao diện chính của Jenkin, ngoài ra nó cũng là password mặc định của tài khoản admin (username `admin`) nếu bỏ qua bước tạo user trong quá trình cài đặt
+
+    admin/ 577f0767ad8842298118de410f6a59ff
+
+3. Tuỳ biến Jenkins với plugins
+
+    Có hai option:
+    - Install suggested plugins: phù hợp cho đại đa số, cài các plugins được gợi ý bởi Jenkin
+    - Select plugin to install: tự chọn cài đặt plugin
+
+4. Tạo tài khoản admin đầu tiên
+
+    Sau khi cài đặt xong Jenkin, tới bước tạo tài khoản Admin
+    Điền các field cần thiết, rồi ấn **Save and Finish**
