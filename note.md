@@ -295,6 +295,400 @@ Chuối
 Cam
 ```
 # Hướng đối tượng 
+## CLass và object 
+### Class
+* Định nghĩa: Class là khuôn mẫu hoặc bản thiết kế dùng để tạo ra các đối tượng, nó chứa các thuộc tính (biến) hoặc hành động (methods) của đối tượng.
+### Object (đối tượng)
+* Định nghĩa: là một đối tượng cụ thể được tạo ra từ class. Có thể thao tác, thay đổi giá trị của đối tượng.
+### ví dụ
+```
+// Định nghĩa class Sach
+public class Sach {
+    // đây là thuộc tính (attributes)
+    private String maSach;
+    private String tenSach;
+    private String tacGia;
+    private int namXuatBan;
+
+    //Constructor (Hàm tạo) 
+    public Sach(String maSach, String tenSach, String tacGia, int namXuatBan) {
+        this.maSach = maSach;
+        this.tenSach = tenSach;
+        this.tacGia = tacGia;
+        this.namXuatBan = namXuatBan;
+    }
+    // methods 
+    public void hienThiThongTin() {
+        System.out.println("Mã sách: " + maSach);
+        System.out.println("Tên sách: " + tenSach);
+        System.out.println("Tác giả: " + tacGia);
+        System.out.println("Năm xuất bản: " + namXuatBan);
+    }
+    // Tạo các object sách
+    public static void main(String[] args) {
+        Sach sach1 = new Sach("001", "Java Programming", "John Doe", 2020);
+        Sach sach2 = new Sach("002", "Data Structures", "Jane Smith", 2019);
+
+        // Hiển thị thông tin về các object sách (methods)
+        System.out.println("Thông tin sách 1:");
+        sach1.hienThiThongTin();
+
+        System.out.println("Thông tin sách 2:");
+        sach2.hienThiThongTin();
+    }
+}
+```
+## Thuộc tính (attributes) và phương thức (method)
+### Thuộc tính (attributes)
+* Là dùng để khai báo các đặc điểm của biến trong class 
+```
+public class Person {
+    // Thuộc tính (biến thành viên)
+    String name;
+    int age;
+}
+```
+* Getter và Setter
+```
+public class Person {
+    private String name;
+
+    // Getter: xuất giá trị 
+    public String getName() {
+        return name;
+    }
+
+    // Setter: thay đổi giá trị 
+    public void setName(String newName) {
+        name = newName;
+    }
+}
+```
+### Phương thức (methods)
+Là một khối lệnh để thực hiện một hành động cụ thể
+```VD
+public class Person {
+    private String name;
+    private int age;
+
+    // Constructor : dùng để tạo đối tượng 
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    // Phương thức thường : Gắn với từng đối tượng
+    public void sayHello() {
+        System.out.println("Xin chào, tôi tên là " + name);
+    }
+
+    // Getter : xuất giá trị thuộc tính
+    public String getName() {
+        return name;
+    }
+
+    // Setter : thay đổi giá trị thuộc tính
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    // Phương thức tĩnh : Gắn với lớp, không cần tạo đối tượng
+    public static void introduce() {
+        System.out.println("Tôi là con người.");
+    }
+}
+```
+## Phạm vi truy cập
+* phạm vi truy cập
+```
+*lệnh*          *Ý nghĩa*
+private	        Chỉ có thể truy cập trong nội bộ lớp đó
+Không ghi gì    chỉ truy cập trong cùng package
+(default)
+
+protected       Truy cập trong cùng package hoặc lớp con ở package khác
+public	        Truy cập từ bất cứ đâu
+```
+## 4 tính chất của OOP
+### Tính đóng gói (Encapsulation)
+Giấu dữ liệu, chỉ cho truy cập qua method 
+```
+class Person {
+    private String name; // ẩn dữ liệu
+
+    public void setName(String n) { name = n; }
+    public String getName() { return name; }
+}
+```
+### Kế thừa (Inheritance)
+Lớp con kế thừa thuộc tính và phương thức từ lớp cha
+```
+class Animal {
+    void speak() { 
+        System.out.println("Sound"); 
+        }
+}
+
+class Dog extends Animal { 
+
+}
+```
+### Đa hình (Polymorphism)
+Một hành vi – nhiều cách thực hiện (overriding, overloading)
+```
+class Animal {
+    void speak() { 
+        System.out.println("Animal");
+        }
+}
+
+class Cat extends Animal {
+    void speak() { 
+        System.out.println("Meow"); 
+        }
+}
+```
+```
+Animal a = new Cat();
+a.speak();  // In: Meow
+```
+### Trừu tượng (Abstraction)
+Ẩn chi tiết, chỉ hiển thị phần cần thiết (dùng ```abstract``` hoặc ```interface```)
+```
+interface Animal {
+    void makeSound();  // khai báo hành vi
+}
+class Dog implements Animal {
+    public void makeSound() {
+        System.out.println("Gâu gâu");
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Animal a = new Dog();   // Dùng theo kiểu trừu tượng
+        a.makeSound();          // In: Gâu gâu
+    }
+}
+
+```
+## ```static``` và ```final```
+### ```static```
+Là một từ khóa dùng để khai báo biến, hằng số và methods làm cho chúng thuộc về class chứ không phải thuộc một object cụ thể
+```
+public class Student {
+    static String school = "ABC";
+
+    String name;
+    Student(String name) { this.name = name; }
+
+    void show() {
+        System.out.println(name + " - " + school);
+    }
+
+    static void printSchool() {
+        System.out.println("School: " + school);
+    }
+}
+```
+### ```final```: 
+Để khai báo thuộc tính không thể thay đổi
+```
+public class Person {
+    public final String country = "Vietnam";
+}
+```
+## package
+```package``` là một cách để tổ chức các class một cách có cấu trúc giúp tránh xung đột, dễ quản lí, kiểm soát truy cập giữa các lớp bằng cách sử dụng các modifier như public, protected, hoặc default.
+
+**1 khai báo package**
+```
+package com.example.myapp;
+
+public class MyClass {
+    // code ở đây
+}
+```
+Thư mục chứa file ```MyClass.java``` cần nằm trong thư mục ```com/example/myapp```
+
+**2 Import package**
+```
+//import 1 class scanner 
+import java.util.Scanner;
+
+//import tất các class trong java.util
+import java.util.*;
+```
+không dùng import thì phải khai báo đầy đủ tên package và class khi sử dụng
+```
+public class Main {
+    public static void main(String[] args) {
+        java.util.Scanner sc = new java.util.Scanner(System.in);
+    }
+}
+```
+**3 không khai báo package**
+```
+không khai báo thì sẽ ở package default
+```
+**4 Tạo package trong project**
+ví dụ cấu trúc 
+```
+src/
+  └── com/
+      └── myapp/
+          ├── Main.java
+          └── utils/
+              └── Helper.java
+// .java là file class
+```
+``` tạo class main trong package 
+package com.myapp;
+
+import com.myapp.utils.Helper;
+
+public class Main {
+    public static void main(String[] args) {
+        Helper.sayHello();
+    }
+}
+```
+``` tạo class Helper trong package 
+package com.myapp.utils;
+
+public class Helper {
+    public static void sayHello() {
+        System.out.println("Hello from Helper!");
+    }
+}
+```
+## Tổ chức code
+**1 Cấu trúc thư mục**
+```
+MyProject/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/
+│   │   │       └── yourcompany/
+│   │   │           └── projectname/
+│   │   │               ├── Main.java
+│   │   │               ├── model/
+│   │   │               ├── service/
+│   │   │               ├── controller/
+│   │   │               └── util/
+│   └── test/
+│       └── java/
+│           └── com/...
+├── pom.xml (dùng Maven)
+```
+```
+model: Chứa các class biểu diễn dữ liệu	
+VD: User.java, Product.java
+
+service: Chứa logic nghiệp vụ	
+VD: UserService.java
+
+controller:	Xử lý yêu cầu từ UI/API	
+VD: UserController.java
+
+repository(nếu dùng JPA): quản lý truy cập dữ liệu	
+VD: UserRepository.java
+
+util: Các hàm tiện ích	
+VD: StringUtils.java, DateUtils.java
+```
+**2 Test** 
+```
+Unit Test:	   Kiểm thử từng đơn vị nhỏ (thường là 1 method/class)
+
+Integration Test:	Kiểm tra sự tương tác giữa nhiều class/module
+
+System Test     	Kiểm tra toàn bộ hệ thống hoạt động đúng không
+
+Regression Test:	Đảm bảo thay đổi mới không làm hỏng tính năng cũ
+```
+```
+VD cấu trúc test
+
+src/
+├── main/
+│   └── java/
+│       └── com.example.project/
+│           └── Calculator.java
+└── test/
+    └── java/
+        └── com.example.project/
+            └── CalculatorTest.java
+```
+Ví dụ file test
+```có class
+// Calculator.java
+public class Calculator {
+    public int add(int a, int b) {
+        return a + b;
+    }
+}
+```
+``` File test sẽ là
+// CalculatorTest.java
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class CalculatorTest {
+
+    @Test
+    void testAdd() {
+        Calculator calc = new Calculator();
+        assertEquals(5, calc.add(2, 3));
+    }
+}
+// @Test: đánh dấu method là một test case.
+// assertEquals(expected, actual): kiểm tra kết quả.
+```
+## Quản lý dependency: Maven
+**cấu trúc cơ bản của file ```pom.xml```**
+```
+<dependencies>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-core</artifactId>
+        <version>5.3.25</version>
+    </dependency>
+</dependencies>
+
+// groupId: Tên nhóm hoặc tổ chức
+// artifactId: Tên của thư viện
+// version: Phiên bản muốn sử dụng
+```
+**Quản lý dependency với scope**
+```
+compile: Mặc định – có mặt khi biên dịch, test, chạy.
+
+provided: Có mặt khi biên dịch, nhưng môi trường chạy sẽ cung cấp (VD: servlet API).
+
+runtime: Không cần khi biên dịch, nhưng cần khi chạy.
+
+test: Chỉ dùng khi chạy test (JUnit, Mockito...).
+
+system: Giống provided, nhưng bạn phải chỉ rõ đường dẫn cụ thể.
+```
+``` VD
+<dependency>
+    <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+    <version>4.13.2</version>
+    <scope>test</scope>
+</dependency>
+```
+**Lệnh maven cơ bản**
+```
+mvn clean	            Xóa thư mục target
+mvn compile	            Biên dịch mã nguồn
+mvn test	            Chạy unit test
+mvn package	            Đóng gói thành file .jar hoặc .war
+mvn install 	        Cài đặt vào local repository
+mvn dependency:tree	    Hiển thị cây phụ thuộc
+```
 
 
 
