@@ -501,6 +501,27 @@ public class Person {
 ```package``` là một cách để tổ chức các class một cách có cấu trúc giúp tránh xung đột, dễ quản lí, kiểm soát truy cập giữa các lớp bằng cách sử dụng các modifier như public, protected, hoặc default.
 
 **1 khai báo package**
+* Khi cần nhập kí tự từ bàn phím hoặc đọc file cần
+```
+import java.util.Scanner;
+
+lệnh 
+Nhập số từ bàn phím	        scanner.nextInt()
+Nhập chuỗi từ bàn phím	    scanner.nextLine()
+Đọc dữ liệu từ file	        new Scanner(new File("data.txt"))
+VD : 
+    Scanner <tên đối tượng> = new Scanner(System.in); // tạo đối tượng scanner để đọc dữ liệu từ bàn phím
+
+    System.out.print("Nhập vào một số nguyên: ");
+    int a = <tên đối tượng>.nextInt();
+
+    if (a >= 0) {
+        System.out.println("Đây là số nguyên dương");
+    } else {
+        System.out.println("Đây là số nguyên âm");
+    }
+```
+Khai báo package 
 ```
 package com.example.myapp;
 
