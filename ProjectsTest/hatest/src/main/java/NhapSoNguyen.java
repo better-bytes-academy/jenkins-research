@@ -1,3 +1,4 @@
+package main.java;
 import java.util.Scanner;
 public class NhapSoNguyen {
     public static void main(String[] args) {

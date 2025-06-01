@@ -1,3 +1,4 @@
+package main.java;
 import java.util.Scanner;
 public class Nhap3SoThuc {
     public static void main(String[] args) {

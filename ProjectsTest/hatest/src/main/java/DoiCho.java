@@ -1,6 +1,5 @@
 package main.java;
 
-import java.util.Scanner;
 public class DoiCho {
     public static void main(String[] args) {
         int a = 3;
